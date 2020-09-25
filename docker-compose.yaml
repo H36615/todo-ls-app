@@ -1,0 +1,45 @@
+
+version: '3.5'
+
+services:
+  todo-ls-db:
+    container_name: todo_ls_db
+    image: postgres
+    environment:
+      # Note: Extra steps are needed to change these values after the values have been created.
+      # More info: https://github.com/docker-library/postgres/issues/203#issuecomment-255200501
+      # Short version: delete the right volume (Use 'docker-compose down -v'?).
+      POSTGRES_USER:  ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      # Default port is 5432. Use 'command: -p 5001' if ever need to change that.
+      - "3020:5432" # Note: pgadmin required 5432 anyway. # TODO .envify
+    networks:
+      - db-network
+    restart: unless-stopped
+  
+  todo-ls-pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-3022}:80" # TODO .envify
+    networks:
+      - db-network
+    restart: unless-stopped
+
+networks:
+  db-network:
+    driver: bridge
+
+volumes:
+    postgres:
+    pgadmin:
