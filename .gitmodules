@@ -1,3 +1,6 @@
 [submodule "todo-ls-backend"]
 	path = todo-ls-backend
 	url = https://github.com/H36615/todo-ls-backend.git
+[submodule "todo-ls-frontend"]
+	path = todo-ls-frontend
+	url = https://github.com/H36615/todo-ls-frontend.git
