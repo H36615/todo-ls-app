@@ -8,4 +8,5 @@ todo-ls is a simple web app for organizing tasks/todos - a todo list app.
 
 ## Source code repositories
 [todo-ls backend](https://github.com/H36615/todo-ls-backend)
+
 [todo-ls frontend](https://github.com/H36615/todo-ls-frontend)
