@@ -24,8 +24,8 @@ export $(cat .env | sed 's/#.*//g' | xargs)
 (
 	(docker -v || echo "Docker not found.") &&
 	(docker-compose up -d || echo "Make sure docker is running.") &&
-	docker exec -ti todo_ls_backend npm test &&
-	docker exec -ti todo_ls_backend npm run migrate &&
-	docker exec -ti todo_ls_backend npm run seed &&
+	docker exec todo_ls_backend npm test &&
+	docker exec todo_ls_backend npm run migrate &&
+	docker exec todo_ls_backend npm run seed &&
 	echo "App is now available at http://localhost:${FRONTEND_CONTAINER_PORT}"
 ) || echo "If you had started the app before, you should shut down the containers, remove the images and run this again."
