@@ -24,6 +24,7 @@ export $(cat .env | sed 's/#.*//g' | xargs)
 (
 	(docker -v || echo "Docker not found.") &&
 	(docker-compose up -d || echo "Make sure docker is running.") &&
+	echo "Running backend tests" &&
 	docker exec todo_ls_backend npm test &&
 	docker exec todo_ls_backend npm run migrate &&
 	docker exec todo_ls_backend npm run seed &&
